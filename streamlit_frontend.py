@@ -3,10 +3,23 @@
 import re
 import requests
 import streamlit as st
+import os
+import re
+import requests
+import streamlit as st
+from dotenv import load_dotenv
 
 # ———————— Configuration ————————
 USER_AGENT    = "weather-app-streamlit/1.0 (khushidesai.ai@gmail.com)"
 API_BASE      = "http://localhost:8000"
+API_LOCATIONS = f"{API_BASE}/locations/"
+load_dotenv()  # loads .env in local dev, no‐op in Cloud
+USER_AGENT    = "weather-app-streamlit/1.0 (khushidesai.ai@gmail.com)"
+# first look in Streamlit secrets, then in OS env, then default to localhost
+API_BASE      = (
+    st.secrets.get("API_BASE")
+    or os.getenv("API_BASE", "http://localhost:8000")
+)
 API_LOCATIONS = f"{API_BASE}/locations/"
 
 # ———————— Helper functions ————————
